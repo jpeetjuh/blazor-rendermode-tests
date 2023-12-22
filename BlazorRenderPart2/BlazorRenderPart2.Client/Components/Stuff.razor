@@ -1,0 +1,53 @@
+﻿@inject IConfiguration config
+
+<dl>
+	<dt>Config string:</dt>
+	<dd>@ConfigString</dd>
+	<dt>Count:</dt>
+	<dd>@Count</dd>
+	<dt>OnClick string appends:</dt>
+	<dd>@StringAppends</dd>
+</dl>
+
+<button @onclick="AppendString">Append string</button>
+
+@code {
+	public string ConfigString { get; set; } = "-";
+	public int Count { get; set; } = 1;
+	public string StringAppends { get; set; } = "o";
+
+	protected override void OnInitialized()
+	{
+		ConfigString = config.GetValue<string>("ConfigString")!;
+
+		new Timer(async _ =>
+		{
+			Count++;
+			await InvokeAsync(() => StateHasChanged());
+		}, null, 500, 500);
+	}
+
+	void AppendString()
+	{
+		StringAppends += "o";
+	}
+}
+
+<style>
+	dl {
+		display: grid;
+		grid-template: 
+			'lcs cs' 20px
+			'lc c' 20px
+			'lsa sa' 20px / 200px 1fr;
+	}
+
+	button {
+		border: 2px solid blue;
+		background: lightblue;
+	}
+	button:active {
+		border: 2px solid green;
+		background: lightgreen;
+	}
+</style>

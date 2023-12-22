@@ -1,0 +1,48 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<h1>@@rendermode tests</h1>
+
+<div class="labels-and-components">
+	@* <h4>WASM</h4>
+ 	<div>
+		<Stuff @rendermode="InteractiveWebAssembly" />
+	</div> *@
+
+	<h4>Server</h4>
+	<div>
+		<Stuff @rendermode="InteractiveServer" />
+	</div>
+
+	<h4>Auto</h4>
+	<div>
+		<Stuff @rendermode="InteractiveAuto" />
+	</div>
+
+	<h4>None</h4>
+	<div>
+		<Stuff />
+	</div>
+</div>
+
+
+<style>
+	.labels-and-components {
+		display: grid;
+		grid-template:
+			'q w' auto
+			'e r' auto
+			'u i' auto
+			't y' auto / 40px 1fr;
+	}
+
+		.labels-and-components div {
+			padding: 1rem 0;
+			border-bottom: 2px solid gray;
+		}
+
+	h4 {
+		transform: rotate(-90deg) translateX(-22px) translateY(25px);
+	}
+</style>
